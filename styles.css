@@ -1,0 +1,33 @@
+/* Estilos adicionales para la aplicación */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Estilos para mejorar la experiencia en dispositivos móviles */
+  @media (max-width: 640px) {
+    .w-80 {
+      width: 280px;
+      height: 280px;
+    }
+    
+    .text-2xl {
+      font-size: 1.25rem;
+    }
+    
+    .text-xl {
+      font-size: 1.1rem;
+    }
+  }
