@@ -1,54 +1,56 @@
-// Componente principal
+// Componente principal con descripción detallada de tareas
 const App = () => {
   const [roomTasks, setRoomTasks] = React.useState({
     pasillo: [
-      "Aspiradora: alfombra",
-      "Mueble de zapato",
-      "Barrer piso/trapear",
-      "Aspirar sillón",
-      "Cito Fono (closet)",
-      "Mueble azul"
+      { task: "Barrer el piso", method: "Usar escoba para recoger polvo y suciedad acumulada" },
+      { task: "Aspirar la alfombra", method: "Pasar la aspiradora por toda la superficie" },
+      { task: "Aspirar el sillón", method: "Usar aspiradora con accesorio para tapizados" },
+      { task: "Trapear el piso", method: "Utilizar mopa húmeda con producto de limpieza" },
+      { task: "Limpiar el mueble de zapatos", method: "Pasar paño de microfibra húmedo" },
+      { task: "Limpiar mueble azul", method: "Usar paño húmedo y secar si es necesario" }
     ],
     baño: [
-      "Baño",
-      "Toilet",
-      "Espejo",
-      "La tapa/la tina",
-      "Toallas",
-      "Barrer",
-      "Mopa",
-      "Sacar la basura",
-      "Lavabo"
+      { task: "Toilet", method: "Cepillar con cloro gel, limpiar con paño húmedo y secar" },
+      { task: "Espejo", method: "Limpiar con limpia vidrios y secar con toalla de microfibra" },
+      { task: "Piso del baño", method: "Trapear con producto de limpieza de piso y paño para piso especifico para el baño" },
+      { task: "Lavar la tina o ducha", method: "Usar esponja, CIF y paño seco durante la aplicación; enjuagar bien" },
+      { task: "Desagüe", method: "Limpiar y retirar suciedad visible" },
+      { task: "Piso", method: "Barrer o aspirar antes de trapear" },
+      { task: "Cambiar toallas y limpiar lavamanos", method: "Usar productos adecuados" },
+      { task: "Limpiar objetos en la pared", method: "Pasar paño húmedo (ej: porta toalla, repisas)" },
+      { task: "Limpiar detrás y arriba de la lavadora", method: "Quitar polvo con desengrasante" },
+      { task: "Mover la lavadora y limpiar debajo", method: "Aplicar CIF y limpiar bien el piso" },
+      { task: "Cambiar alfombras y lavar las sucias", method: "Seguir instrucciones según tipo de tela" }
     ],
     living: [
-      "Barrer",
-      "Aspirar sillón",
-      "Limpia mueble (anillo)",
-      "Mesita blanca",
-      "Estante",
-      "Limpiar puerta de cocina"
+      { task: "Barrer o aspirar el piso", method: "Cubrir toda la superficie del living" },
+      { task: "Aspirar el sillón", method: "Utilizar accesorio para tapizados de la aspiradora" },
+      { task: "Limpiar mueble amarillo", method: "Pasar paño húmedo con cuidado" },
+      { task: "Limpiar mesa blanca", method: "Usar paño con mezcla de CIF y agua" },
+      { task: "Limpiar la puerta de la cocina", method: "Pasar paño húmedo por ambos lados" }
     ],
     cocina: [
-      "Limpiar piso: humedo toda la superficie (anti-grasa)",
-      "Horno",
-      "Microonda",
-      "Refri",
-      "Dentro gabinetes",
-      "Limpiar parrilla",
-      "Exterior: anti-grasa",
-      "Alrededores de los muebles",
-      "Cocina"
+      { task: "Refrigerador", method: "Lavar vidrios y partes visibles, limpiar puertas con antigrasa, lavar zona metálica exterior. Desenchufar antes de limpiar" },
+      { task: "Microondas", method: "Limpiar interior y exterior. Desenchufar antes de limpiar" },
+      { task: "Horno", method: "Limpiar puerta y parte exterior. Desenchufar si es necesario" },
+      { task: "Cocina", method: "Lavar tazas de metal; limpiar con esponja, cloro gel o CIF; enjuagar con paño húmedo" },
+      { task: "Pared de la cocina", method: "Limpiar manchas de grasa" },
+      { task: "Mesón y superficies", method: "Incluir mesa chica, microondas y mesita del horno" },
+      { task: "Campana", method: "Limpiar con esponja, cloro gel y paño húmedo" },
+      { task: "Piso de la cocina", method: "Trapear con agua y producto desengrasante" }
     ]
   });
+  
 
   const [residents, setResidents] = React.useState([
-    { id: 1, name: "Residente 1", cantCleanBathroom: false },
-    { id: 2, name: "Residente 2", cantCleanBathroom: false },
-    { id: 3, name: "Residente 3", cantCleanBathroom: false },
-    { id: 4, name: "Residente 4", cantCleanBathroom: true }
+    { id: 1, name: "Claudio", cantCleanBathroom: false },
+    { id: 2, name: "Daniela", cantCleanBathroom: false },
+    { id: 3, name: "Sanjay", cantCleanBathroom: false },
+    { id: 4, name: "Erica", cantCleanBathroom: true }
   ]);
 
   const [currentWeek, setCurrentWeek] = React.useState(1);
+  const [assignments, setAssignments] = React.useState({});
   const [editingResident, setEditingResident] = React.useState(null);
   const [tempName, setTempName] = React.useState("");
   const [isSelecting, setIsSelecting] = React.useState(false);
@@ -56,8 +58,6 @@ const App = () => {
   const [animationIndex, setAnimationIndex] = React.useState(0);
   const animationRef = React.useRef(null);
   
-  // Para almacenar las asignaciones automáticas
-  const [assignments, setAssignments] = React.useState({});
   // Para almacenar la última habitación seleccionada
   const [lastSelectedRoom, setLastSelectedRoom] = React.useState(null);
   
@@ -291,7 +291,7 @@ const App = () => {
                   <div className="text-gray-500 italic">Esperando asignación</div>
                 )}
                 {resident.cantCleanBathroom && (
-                  <div className="text-xs text-red-500 mt-1">No puede limpiar baño</div>
+                  <div className="text-xs text-red-500 mt-1">No limpia el baño</div>
                 )}
               </div>
             );
@@ -392,10 +392,17 @@ const App = () => {
               </div>
             </div>
             <ul className="divide-y divide-gray-100">
-              {roomTasks[roomKey].map((task, index) => (
-                <li key={index} className="p-3 hover:bg-gray-50 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mr-2"><circle cx="12" cy="12" r="10"></circle></svg>
-                  <span>{task}</span>
+              {roomTasks[roomKey].map((taskItem, index) => (
+                <li key={index} className="p-3 hover:bg-gray-50">
+                  <div className="flex items-center mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mr-2"><circle cx="12" cy="12" r="10"></circle></svg>
+                    <span className="font-medium">{taskItem.task}</span>
+                  </div>
+                  {taskItem.method && (
+                    <div className="ml-6 text-sm text-gray-600">
+                      <span className="italic">Cómo:</span> {taskItem.method}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
